@@ -136,3 +136,59 @@ hr{
   box-shadow: 0 14px 30px rgba(201,24,74,.14);
   margin-top:16px;
 }
+
+/* Floating hearts overlay */
+.hearts{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Make sure your content sits above the hearts */
+.card{
+  position: relative;
+  z-index: 1;
+}
+
+.hearts span{
+  position: absolute;
+  bottom: -10vh;
+  font-size: 22px;
+  opacity: 0.55;
+  animation: floatUp linear infinite;
+  filter: blur(0px);
+}
+
+/* Different positions/speeds/sizes */
+.hearts span:nth-child(1)  { left: 6%;  animation-duration: 10s; animation-delay: 0s;  transform: scale(0.9); }
+.hearts span:nth-child(2)  { left: 14%; animation-duration: 12s; animation-delay: 1s;  transform: scale(1.1); }
+.hearts span:nth-child(3)  { left: 24%; animation-duration: 9s;  animation-delay: 2s;  transform: scale(0.8); }
+.hearts span:nth-child(4)  { left: 33%; animation-duration: 13s; animation-delay: 0.5s;transform: scale(1.2); }
+.hearts span:nth-child(5)  { left: 42%; animation-duration: 11s; animation-delay: 1.8s;transform: scale(0.95); }
+
+.hearts span:nth-child(6)  { left: 52%; animation-duration: 10s; animation-delay: 0.2s;transform: scale(1.05); }
+.hearts span:nth-child(7)  { left: 61%; animation-duration: 14s; animation-delay: 2.2s;transform: scale(0.85); }
+.hearts span:nth-child(8)  { left: 70%; animation-duration: 9s;  animation-delay: 1.2s;transform: scale(1.15); }
+.hearts span:nth-child(9)  { left: 79%; animation-duration: 12s; animation-delay: 0.9s;transform: scale(0.9); }
+.hearts span:nth-child(10) { left: 88%; animation-duration: 11s; animation-delay: 2.7s;transform: scale(1.25); }
+
+.hearts span:nth-child(11) { left: 10%; animation-duration: 15s; animation-delay: 3.0s;transform: scale(0.75); }
+.hearts span:nth-child(12) { left: 28%; animation-duration: 12s; animation-delay: 2.4s;transform: scale(1.05); }
+.hearts span:nth-child(13) { left: 46%; animation-duration: 10s; animation-delay: 3.2s;transform: scale(0.9); }
+.hearts span:nth-child(14) { left: 66%; animation-duration: 13s; animation-delay: 2.9s;transform: scale(1.1); }
+.hearts span:nth-child(15) { left: 84%; animation-duration: 9s;  animation-delay: 3.6s;transform: scale(0.8); }
+
+@keyframes floatUp{
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.6; }
+  50%  { transform: translateY(-55vh) translateX(16px) rotate(8deg); }
+  100% { transform: translateY(-120vh) translateX(-16px) rotate(-10deg); opacity: 0; }
+}
+
+/* Respect people who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hearts{ display:none; }
+}
+
