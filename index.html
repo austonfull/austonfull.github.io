@@ -7,38 +7,6 @@
   <title>Be My Valentine?</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-  <script>
-  (function () {
-    const audio = document.getElementById("ourAudio");
-    if (!audio) return;
-
-    // Restore time + play state
-    const savedTime = Number(localStorage.getItem("ourSong_time") || "0");
-    const shouldPlay = localStorage.getItem("ourSong_playing") === "1";
-
-    // Safari can be picky about setting currentTime before metadata loads
-    audio.addEventListener("loadedmetadata", () => {
-      if (!Number.isNaN(savedTime) && savedTime > 0 && savedTime < audio.duration) {
-        audio.currentTime = savedTime;
-      }
-      if (shouldPlay) {
-        audio.play().catch(() => {
-          // Autoplay may be blocked until user interacts
-        });
-      }
-    });
-
-    // Save time periodically
-    const saveTime = () => localStorage.setItem("ourSong_time", String(audio.currentTime || 0));
-    audio.addEventListener("timeupdate", saveTime);
-    window.addEventListener("beforeunload", saveTime);
-
-    // Save play/pause state
-    audio.addEventListener("play", () => localStorage.setItem("ourSong_playing", "1"));
-    audio.addEventListener("pause", () => localStorage.setItem("ourSong_playing", "0"));
-  })();
-</script>
-
 <body>
   <div class="hearts" aria-hidden="true">
   <span>💗</span><span>💖</span><span>💘</span><span>💞</span><span>💕</span>
@@ -51,7 +19,7 @@
     <p>💘 I made this just for you (chatgpt helped with the code lol)💘</p>
 
     <div class="buttons">
-      <a class="btn btn-primary" href="song.html">Yes please 💖</a>
+      <a class="btn btn-primary" href="yes.html">Yes please 💖</a>
       <a class="btn btn-soft" href="no.html">No thank you 🥺</a>
     </div>
 
