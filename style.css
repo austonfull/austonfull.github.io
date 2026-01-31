@@ -22,6 +22,22 @@ html{
     radial-gradient(circle at 75% 85%, #ffccd5 0 34%, transparent 35%),
     linear-gradient(180deg, var(--pink1), #fff);
   background-attachment: fixed;
+
+  /* Helps some browsers reduce overscroll glow/white */
+  background-color: var(--pink1);
+}
+
+/* ✅ iOS Safari bounce fix: paint a fixed gradient "under" the whole page */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -250px; /* extend beyond viewport so bounce never shows white */
+  z-index: -10;
+  background:
+    radial-gradient(circle at 15% 20%, var(--pink2) 0 35%, transparent 36%),
+    radial-gradient(circle at 85% 10%, #ffd6e0 0 30%, transparent 31%),
+    radial-gradient(circle at 75% 85%, #ffccd5 0 34%, transparent 35%),
+    linear-gradient(180deg, var(--pink1), #fff);
 }
 
 body{
@@ -40,8 +56,11 @@ body{
   color:var(--text);
   font-family:"Nunito", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 
-  /* ✅ transparent so html background shows during iOS bounce */
+  /* ✅ transparent so html/::before background shows during iOS bounce */
   background: transparent;
+
+  /* Helps on some browsers (won’t fully disable iOS Safari bounce, but harmless) */
+  overscroll-behavior: none;
 }
 
 .card{
@@ -53,7 +72,7 @@ body{
   box-shadow:var(--shadow);
   backdrop-filter: blur(10px);
 
-  /* ✅ keep content above hearts */
+  /* keep layout consistent; hearts will be ABOVE everything now */
   position: relative;
   z-index: 1;
 }
@@ -156,13 +175,15 @@ hr{
   margin-top:16px;
 }
 
-/* Floating hearts overlay */
+/* Floating hearts overlay (NOW ON TOP of everything) */
 .hearts{
   position: fixed;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 0;
+
+  /* ✅ put hearts above all content */
+  z-index: 9999;
 }
 
 .hearts span{
@@ -171,6 +192,9 @@ hr{
   font-size: 22px;
   opacity: 0.55;
   animation: floatUp linear infinite;
+
+  /* tiny pop so they show over white cards */
+  text-shadow: 0 6px 18px rgba(201,24,74,.25);
 }
 
 /* Different positions/speeds/sizes */
