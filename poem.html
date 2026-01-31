@@ -7,51 +7,8 @@
   <title>A Poem</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-  <script>
-  (function () {
-    const audio = document.getElementById("ourAudio");
-    if (!audio) return;
-
-    // Restore time + play state
-    const savedTime = Number(localStorage.getItem("ourSong_time") || "0");
-    const shouldPlay = localStorage.getItem("ourSong_playing") === "1";
-
-    // Safari can be picky about setting currentTime before metadata loads
-    audio.addEventListener("loadedmetadata", () => {
-      if (!Number.isNaN(savedTime) && savedTime > 0 && savedTime < audio.duration) {
-        audio.currentTime = savedTime;
-      }
-      if (shouldPlay) {
-        audio.play().catch(() => {
-          // Autoplay may be blocked until user interacts
-        });
-      }
-    });
-
-    // Save time periodically
-    const saveTime = () => localStorage.setItem("ourSong_time", String(audio.currentTime || 0));
-    audio.addEventListener("timeupdate", saveTime);
-    window.addEventListener("beforeunload", saveTime);
-
-    // Save play/pause state
-    audio.addEventListener("play", () => localStorage.setItem("ourSong_playing", "1"));
-    audio.addEventListener("pause", () => localStorage.setItem("ourSong_playing", "0"));
-  })();
-</script>
 
 <body>
-  <div id="musicBar" style="position:sticky;top:0;z-index:10000;padding:10px 0;">
-  <div class="card" style="padding:14px 16px;">
-    <div class="center">
-      <h2 style="font-size:28px;margin:0 0 6px;">Our song 🎶</h2>
-      <audio id="ourAudio" controls preload="auto" style="width:min(520px,100%);">
-        <source src="audio/oursong.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <p class="small" style="margin-top:8px;">Press play once — it’ll keep going as you click Next 💗</p>
-    </div>
-  </div>
-</div>
 
   <div class="hearts" aria-hidden="true">
   <span>💗</span><span>💖</span><span>💘</span><span>💞</span><span>💕</span>
